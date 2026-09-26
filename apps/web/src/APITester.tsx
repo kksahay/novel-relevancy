@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { apiRoutes } from "@novel-relevancy/shared";
 import { useRef, type FormEvent } from "react";
 
 export function APITester() {
@@ -38,13 +39,21 @@ export function APITester() {
           </SelectTrigger>
           <SelectContent align="start">
             <SelectItem value="GET">GET</SelectItem>
+            <SelectItem value="POST">POST</SelectItem>
             <SelectItem value="PUT">PUT</SelectItem>
+            <SelectItem value="DELETE">DELETE</SelectItem>
           </SelectContent>
         </Select>
         <Label htmlFor="endpoint" className="sr-only">
           Endpoint
         </Label>
-        <Input id="endpoint" type="text" name="endpoint" defaultValue="/api/hello" placeholder="/api/hello" />
+        <Input
+          id="endpoint"
+          type="text"
+          name="endpoint"
+          defaultValue={apiRoutes.health}
+          placeholder={apiRoutes.health}
+        />
         <Button type="submit" variant="secondary">
           Send
         </Button>
