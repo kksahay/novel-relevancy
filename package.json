@@ -8,12 +8,16 @@
     "dev": "bun run --parallel --filter '*' dev",
     "build": "bun run --filter '*' build",
     "start": "bun run --parallel --filter '*' start",
-    "typecheck": "bun run --filter '*' typecheck",
+    "typecheck": "tsc --noEmit -p tsconfig.scripts.json && bun run --filter '*' typecheck",
     "db:generate": "bun run --filter '@novel-relevancy/api' db:generate",
-    "db:migrate": "bun run --filter '@novel-relevancy/api' db:migrate"
+    "db:migrate": "bun run --filter '@novel-relevancy/api' db:migrate",
+    "db:seed": "bun run --filter '@novel-relevancy/api' db:seed",
+    "evaluate": "bun run --filter '@novel-relevancy/api' evaluate",
+    "run-local": "bun scripts/run-local.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/node": "^26.6.3",
     "typescript": "^7"
   }
 }

@@ -8,7 +8,6 @@ export default defineConfig({
   dialect: "postgresql",
   strict: true,
   verbose: true,
-  // Only needed by `push` / `migrate`; `generate` works without PG_URI.
   dbCredentials: {
     url: url ?? "",
   },

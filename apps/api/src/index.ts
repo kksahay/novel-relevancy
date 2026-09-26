@@ -32,3 +32,14 @@ async function shutdown(signal: string): Promise<void> {
 
 process.on("SIGINT", () => void shutdown("SIGINT"));
 process.on("SIGTERM", () => void shutdown("SIGTERM"));
+process.on("beforeExit", () => void closeDatabase());
+
+// `bun --hot` re-evaluates this module on every change. Without an explicit
+// teardown each reload would leave its previous connection pool open, which
+// exhausts the database's connection slots after a handful of edits.
+if (import.meta.hot) {
+  import.meta.hot.dispose(() => {
+    void server.stop(true);
+    void closeDatabase();
+  });
+}

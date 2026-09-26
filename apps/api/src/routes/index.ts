@@ -1,10 +1,8 @@
 import { withCommon } from "../lib/middleware";
 import { healthRoutes } from "./health";
-import { postRoutes } from "./posts";
-import { userRoutes } from "./users";
+import { articleRoutes } from "./articles";
 
 export const routes = withCommon({
   ...healthRoutes,
-  ...userRoutes,
-  ...postRoutes,
+  ...articleRoutes,
 });

@@ -1,3 +1,4 @@
+import { ZodError } from "zod";
 import { logger } from "./logger";
 
 /** Error that maps directly onto an HTTP status code. */
@@ -25,6 +26,19 @@ export function errorResponse(error: unknown): Response {
   if (error instanceof HttpError) {
     const body = error.details === undefined ? { error: error.message } : { error: error.message, details: error.details };
     return json(body, { status: error.status });
+  }
+
+  // Schema violations are client errors, not server faults.
+  if (error instanceof ZodError) {
+    const first = error.issues[0];
+    const field = first?.path.join(".");
+    return json(
+      {
+        error: field ? `"${field}" is invalid: ${first?.message}` : "Request body is invalid",
+        details: { field, issues: error.issues },
+      },
+      { status: 400 },
+    );
   }
 
   logger.error("unhandled error:", error);

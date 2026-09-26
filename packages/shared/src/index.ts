@@ -46,4 +46,10 @@ export const apiRoutes = {
   user: (id: string) => `/api/users/${encodeURIComponent(id)}`,
   posts: "/api/posts",
   post: (id: string) => `/api/posts/${encodeURIComponent(id)}`,
+  articles: "/api/articles",
+  article: (id: string) => `/api/articles/${encodeURIComponent(id)}`,
+  articleSubmissions: (articleId: string) => `/api/articles/${encodeURIComponent(articleId)}/submissions`,
+  articleEvaluate: (articleId: string) => `/api/articles/${encodeURIComponent(articleId)}/evaluate`,
+  articleEvaluations: (articleId: string) => `/api/articles/${encodeURIComponent(articleId)}/evaluations`,
+  evaluation: (id: string) => `/api/evaluations/${encodeURIComponent(id)}`,
 } as const;
